@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Staff Roster Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-hospital"></i> Hospital Staff Roster</h1>
+            <p>Manage staff members and their shifts efficiently</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="nav-section">
+                    <h3><i class="fas fa-users"></i> Staff Management</h3>
+                    <button class="nav-btn active" onclick="showSection('staff-list')">
+                        <i class="fas fa-list"></i> Staff List
+                    </button>
+                    <button class="nav-btn" onclick="showSection('add-staff')">
+                        <i class="fas fa-user-plus"></i> Add Staff
+                    </button>
+                </div>
+                <div class="nav-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Shift Management</h3>
+                    <button class="nav-btn" onclick="showSection('schedule-shift')">
+                        <i class="fas fa-calendar-plus"></i> Schedule Shift
+                    </button>
+                    <button class="nav-btn" onclick="showSection('view-shifts')">
+                        <i class="fas fa-eye"></i> View Shifts
+                    </button>
+                    <button class="nav-btn" onclick="showSection('update-shift')">
+                        <i class="fas fa-edit"></i> Update Shift
+                    </button>
+                    <button class="nav-btn" onclick="showSection('cancel-shift')">
+                        <i class="fas fa-times"></i> Cancel Shift
+                    </button>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Staff List Section -->
+                <section id="staff-list" class="section active">
+                    <h2><i class="fas fa-users"></i> Staff Members</h2>
+                    <div id="staff-container" class="staff-grid">
+                        <!-- Staff cards will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Add Staff Section -->
+                <section id="add-staff" class="section">
+                    <h2><i class="fas fa-user-plus"></i> Add New Staff Member</h2>
+                    <form id="staff-form" class="form-card">
+                        <div class="form-group">
+                            <label for="staff-name"><i class="fas fa-user"></i> Name</label>
+                            <input type="text" id="staff-name" placeholder="Enter staff name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="staff-role"><i class="fas fa-briefcase"></i> Role</label>
+                            <select id="staff-role" required>
+                                <option value="">Select role</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Technician">Technician</option>
+                                <option value="Administrator">Administrator</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="staff-department"><i class="fas fa-building"></i> Department</label>
+                            <select id="staff-department" required>
+                                <option value="">Select department</option>
+                                <option value="Emergency">Emergency</option>
+                                <option value="Surgery">Surgery</option>
+                                <option value="Internal Medicine">Internal Medicine</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="Radiology">Radiology</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-plus"></i> Add Staff Member
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Schedule Shift Section -->
+                <section id="schedule-shift" class="section">
+                    <h2><i class="fas fa-calendar-plus"></i> Schedule New Shift</h2>
+                    <form id="shift-form" class="form-card">
+                        <div class="form-group">
+                            <label for="shift-staff-select"><i class="fas fa-user"></i> Select Staff</label>
+                            <select id="shift-staff-select" required>
+                                <option value="">Choose staff member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="shift-date"><i class="fas fa-calendar"></i> Date</label>
+                            <input type="date" id="shift-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shift-time"><i class="fas fa-clock"></i> Time</label>
+                            <input type="time" id="shift-time" required>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-calendar-check"></i> Schedule Shift
+                        </button>
+                    </form>
+                </section>
+
+                <!-- View Shifts Section -->
+                <section id="view-shifts" class="section">
+                    <h2><i class="fas fa-eye"></i> View Staff Shifts</h2>
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="view-staff-select"><i class="fas fa-user"></i> Select Staff</label>
+                            <select id="view-staff-select" required>
+                                <option value="">Choose staff member</option>
+                            </select>
+                        </div>
+                        <button onclick="viewShifts()" class="btn-primary">
+                            <i class="fas fa-search"></i> View Shifts
+                        </button>
+                    </div>
+                    <div id="shifts-display" class="shifts-container">
+                        <!-- Shifts will be displayed here -->
+                    </div>
+                </section>
+
+                <!-- Update Shift Section -->
+                <section id="update-shift" class="section">
+                    <h2><i class="fas fa-edit"></i> Update Shift</h2>
+                    <form id="update-form" class="form-card">
+                        <div class="form-group">
+                            <label for="update-staff-select"><i class="fas fa-user"></i> Select Staff</label>
+                            <select id="update-staff-select" required>
+                                <option value="">Choose staff member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-shift-select"><i class="fas fa-calendar"></i> Select Shift</label>
+                            <select id="update-shift-select" required>
+                                <option value="">Choose shift to update</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-date"><i class="fas fa-calendar"></i> New Date</label>
+                            <input type="date" id="update-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-time"><i class="fas fa-clock"></i> New Time</label>
+                            <input type="time" id="update-time" required>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Update Shift
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Cancel Shift Section -->
+                <section id="cancel-shift" class="section">
+                    <h2><i class="fas fa-times"></i> Cancel Shift</h2>
+                    <form id="cancel-form" class="form-card">
+                        <div class="form-group">
+                            <label for="cancel-staff-select"><i class="fas fa-user"></i> Select Staff</label>
+                            <select id="cancel-staff-select" required>
+                                <option value="">Choose staff member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cancel-shift-select"><i class="fas fa-calendar"></i> Select Shift</label>
+                            <select id="cancel-shift-select" required>
+                                <option value="">Choose shift to cancel</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-danger">
+                            <i class="fas fa-trash"></i> Cancel Shift
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="notification">
+            <span id="notification-message"></span>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
