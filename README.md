@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hospital Staff Roster
 
 A simple CRUD (Create, Read, Update, Delete) application to manage hospital staff and their shift schedules. This project serves as a sample to demonstrate a full-stack application with a Node.js/Express.js backend API and a vanilla JavaScript frontend.
@@ -80,3 +81,6 @@ The backend exposes the following RESTful API endpoints:
 | `POST`   | `/api/staff/:staffId/shifts`           | Schedule a new shift for a staff member.   |
 | `PUT`    | `/api/staff/:staffId/shifts/:shiftId`  | Update a specific shift.                   |
 | `DELETE` | `/api/staff/:staffId/shifts/:shiftId`  | Cancel (delete) a specific shift.          |
+=======
+# Hospital-Staff-Roster
+>>>>>>> 833a054883fee28d9ce308c993db0d05ef12a6f6
